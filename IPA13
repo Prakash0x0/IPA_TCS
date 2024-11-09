@@ -1,0 +1,116 @@
+import java.util.*;
+class AutonomousCar
+{
+    private int carId;
+    private String brand;
+    private int noOfTestsConducted;
+    private int noOfTestsPassed;
+    private String environment;
+    
+    AutonomousCar(int id,String brand,int tests,int passed,String env)
+    {
+        carId=id;
+        this.brand=brand;
+        noOfTestsPassed=passed;
+        noOfTestsConducted=tests;
+        environment=env;
+    }
+    public int _getID()
+    {
+        
+        return this.carId;
+    }
+    public String _getBrand()
+    {
+        return this.brand;
+    }
+    public int _noOfTests()
+    {
+        return noOfTestsConducted;
+    }
+    public int _noOfTestPassed()
+    {
+        return this.noOfTestsPassed;
+    }
+    
+    public String _getEnv()
+    {
+        return this.environment;
+    }
+    
+}
+
+public class Main
+{
+    public static void main(String ars[])
+    {
+        ArrayList<AutonomousCar>cars=new ArrayList<AutonomousCar>();
+        Scanner sc=new Scanner(System.in);
+        for(int i=0;i<4;i++)
+        {
+            int id=sc.nextInt();
+            sc.nextLine();
+            
+            String brand=sc.nextLine();
+            int noOfTests=sc.nextInt();
+            sc.nextLine();
+            int noOfTestsPassed=sc.nextInt();
+            sc.nextLine();
+            String env=sc.nextLine();
+            AutonomousCar temp=new AutonomousCar(id,brand,noOfTests,noOfTestsPassed,env);
+            
+            cars.add(temp);
+        }
+        String temp1=sc.nextLine();
+        String temp2=sc.nextLine();
+        int result=findTestPassedByEnv(cars,temp1);
+        if(result>0)
+        {
+            System.out.println(result);
+            
+        }
+        else
+        {
+            System.out.println("There are no tests passed in this particular environment");
+        }
+        updateCarGrade(temp2,cars);
+        
+    }
+    static int findTestPassedByEnv(ArrayList<AutonomousCar> cars, String env) {
+        int count = 0;
+        for (int i = 0; i < cars.size(); i++) {
+            if (cars.get(i)._getEnv().equalsIgnoreCase(env)) {
+                count += cars.get(i)._noOfTestPassed();
+            }
+        }
+        return count;
+    }
+
+    static void updateCarGrade(String brand,ArrayList<AutonomousCar> cars)
+    {
+        boolean flag=false;
+       for(int i=0;i<cars.size();i++)
+       {
+           if(cars.get(i)._getBrand().equalsIgnoreCase(brand))
+           {
+               flag|=true;
+               String grade=null;
+               double result=(((double)cars.get(i)._noOfTestPassed()*100.0)/(double)cars.get(i)._noOfTests());
+               if(result>=80.0)
+               System.out.println(cars.get(i)._getBrand()+"::"+"A1");
+               else
+               System.out.println(cars.get(i)._getBrand()+"::"+"B2");
+               
+               
+           }
+           
+       }
+        
+        if(!flag)
+        {
+            System.out.println("No Car is available with the specified brand");
+            
+        }
+    }
+    
+}
