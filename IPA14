@@ -1,0 +1,91 @@
+    import java.util.*;
+class Movie
+{
+    private String movieName;
+    private String company;
+    private String genre;
+    private int budget;
+    
+    Movie(String name,String comany,String genre,int budget)
+    {
+        movieName=name;
+        this.company=comany;
+        this.genre=genre;
+        this.budget=budget;
+    }
+    
+    public String get_MovieName()
+    {
+        return this.movieName;
+    }
+    public String get_Company()
+    {
+        return this.company;
+    }
+    public String get_Genre()
+    {
+        return this.genre;
+    }
+    public int get_Budget()
+    {
+        
+        return this.budget;
+    }
+    
+    
+}
+class Main 
+{
+    
+    
+   public static void main(String args[])
+   {
+       Scanner sc=new Scanner(System.in);
+       ArrayList<Movie>movies=new ArrayList<Movie>();
+       for(int i=0;i<4;i++)
+       {
+           String name=sc.nextLine();
+           String comany=sc.nextLine();
+           String genre=sc.nextLine();
+           int budget=sc.nextInt();
+           
+           sc.nextLine();
+           Movie nw_movie=new Movie(name,comany,genre,budget);
+           movies.add(nw_movie);
+       }
+       //sc.nextLine();
+       String to_find=sc.nextLine();
+       ArrayList<Movie>result=getMovieByGenre(movies,to_find);
+       if(result.size()>0)
+       for(Movie i: result)
+       {
+           if(i.get_Budget()>80000000)
+           System.out.println("HIgh budget Movie");
+           else
+           System.out.println("Low Budget Movie");
+           
+       }
+       
+   }
+   static ArrayList<Movie> getMovieByGenre(ArrayList<Movie>movies,String genre)
+   {
+      ///System.out.println("\n"+genre+" ------------");
+    
+       ArrayList<Movie>new_movies=new ArrayList<Movie>();
+       for(int i=0;i<movies.size();i++)
+       {
+          
+           if(movies.get(i).get_Genre().equalsIgnoreCase(genre))
+           {
+             //System.out.println("Yes it entred");
+               new_movies.add(movies.get(i));
+           }
+           
+       }
+       
+      return new_movies; 
+   }
+   
+   
+   
+}
