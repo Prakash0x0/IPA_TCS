@@ -1,0 +1,88 @@
+
+import  java.util.*;
+class Medicine
+{
+    private String  MedicineNmae;
+    private String batch;
+    private String disease;
+    private int price;
+    
+    Medicine(String name,String batch,String disease,int price)
+    {
+        MedicineNmae=name;
+        this.batch=batch;
+        this.disease=disease;
+        this.price=price;
+    }
+    public String getMedicineName()
+    {
+        return this.MedicineNmae;
+    }
+    public String getBatch()
+    {
+        return this.batch;
+    }
+    public String getDisease()
+    {
+        return this.disease;
+        
+    }
+    public int getPrice()
+    {
+        return this.price;
+    }
+}
+ class toSort implements Comparator<Medicine>
+{
+    public int compare(Medicine a,Medicine b)
+    {
+        return a.getPrice()-b.getPrice();
+    }
+    
+}
+public class Main
+{
+	public static void main(String[] args) {
+	    ArrayList<Medicine>medicines=new ArrayList<Medicine>();
+	    Scanner sc=new Scanner(System.in);
+	    for(int i=0;i<4;i++)
+	    {
+	        String name=sc.nextLine();
+	        String batch=sc.nextLine();
+	        String disease=sc.nextLine();
+	        
+	       int price=sc.nextInt();
+	       sc.nextLine();
+	       Medicine temp=new Medicine(name,batch,disease,price);
+	       medicines.add(temp);
+	    }
+	    String _toDiseaseFind=sc.nextLine();
+	    sc.close();
+	    
+	    ArrayList<Medicine> result=getPriceByDisease(medicines,_toDiseaseFind);
+	    if(result.size()>0)
+	    {
+	        Collections.sort(result,new toSort());
+	    for(Medicine x:result)
+	    System.out.println(x.getPrice());
+	    }
+	    else
+	    {
+	        System.out.println("No medicine found");
+	    }
+	}
+	static ArrayList<Medicine> getPriceByDisease(ArrayList<Medicine>medicines,String _disease)
+	{
+	    ArrayList<Medicine>result=new ArrayList<Medicine>();
+	    
+	    for(int i=0;i<medicines.size();i++)
+	    {
+	        if(medicines.get(i).getDisease().equalsIgnoreCase(_disease))
+	        result.add(medicines.get(i));
+	        
+	    }
+	    
+	    return result;
+	}
+	
+}
